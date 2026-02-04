@@ -1,4 +1,6 @@
 package com.shop.ShopBE.model;
 
-public class OrderStatus {
+public enum OrderStatus {
+    TEMP,
+    CLOSE
 }
