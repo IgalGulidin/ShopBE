@@ -1,0 +1,4 @@
+package com.shop.ShopBE.exception;
+
+public class UnauthorizedException {
+}
