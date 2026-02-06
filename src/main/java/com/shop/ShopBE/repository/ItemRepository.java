@@ -3,10 +3,12 @@ package com.shop.ShopBE.repository;
 import com.shop.ShopBE.model.Item;
 import com.shop.ShopBE.repository.mapper.ItemRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class ItemRepository {
 
     private final JdbcTemplate jdbc;
