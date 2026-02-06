@@ -6,7 +6,7 @@ public class Item {
     private Long id;
     private String title;
     private String imageUrl;
-    private BigDecimal price;
+    private BigDecimal priceUsd;
     private int stockQty;
 
     public Item() {}
@@ -24,7 +24,7 @@ public class Item {
     }
 
     public BigDecimal getPrice() {
-        return this.price;
+        return this.priceUsd;
     }
 
     public int getStockQty() {
@@ -43,8 +43,8 @@ public class Item {
         this.imageUrl = imageUrl;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setPriceUsd(BigDecimal price) {
+        this.priceUsd = price;
     }
 
     public void setStockQty(int stockQty) {
