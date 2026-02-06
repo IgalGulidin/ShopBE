@@ -24,12 +24,12 @@ public class ItemService {
     }
 
     public List<ItemResponse> search(String query) {
-        return ItemRepository.searchByTitle(query).stream().map(ItemMapper::toResponse).toList();
+        return itemRepository.searchByTitle(query).stream().map(itemMapper::toResponse).toList();
     }
 
     public ItemResponse getById(long id) {
-        return ItemRepository.findById(id)
-                .map(mapper::toResponse)
+        return itemRepository.findById(id)
+                .map(itemMapper::toResponse)
                 .orElseThrow(() -> new NotFoundException("Item not found: " + id));
     }
 }

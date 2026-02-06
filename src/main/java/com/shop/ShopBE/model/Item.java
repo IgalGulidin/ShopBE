@@ -23,7 +23,7 @@ public class Item {
         return this.imageUrl;
     }
 
-    public BigDecimal getPrice() {
+    public BigDecimal getPriceUsd() {
         return this.priceUsd;
     }
 
