@@ -28,7 +28,7 @@ CREATE TABLE favorites (
     item_id INT NOT NULL,
     PRIMARY KEY (user_id, item_id),
     CONSTRAINT fk_fav_user FOREIGN KEY (user_id) REFERENCES users(id),
-    CONSTRAINT fk_fav_item FOREIGN KEY (item_id) REFERENCES items(id),
+    CONSTRAINT fk_fav_item FOREIGN KEY (item_id) REFERENCES items(id)
 );
 
 CREATE TABLE orders (
