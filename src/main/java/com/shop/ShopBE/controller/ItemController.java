@@ -22,7 +22,7 @@ public class ItemController {
         return itemService.getAll();
     }
 
-    @GetMapping
+    @GetMapping("/search")
     public List<ItemResponse> search(@RequestParam String query) {
         return itemService.search(query);
     }
