@@ -1,4 +1,7 @@
 package com.shop.ShopBE.exception;
 
-public class NotFoundException {
+public class NotFoundException extends RuntimeException {
+    public NotFoundException(String msg){
+        super(msg);
+    }
 }
