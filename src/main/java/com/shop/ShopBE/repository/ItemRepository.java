@@ -11,24 +11,24 @@ import java.util.Optional;
 @Repository
 public class ItemRepository {
 
-    private final JdbcTemplate jdbc;
+    private final JdbcTemplate jdbcTemplate;
 
     public ItemRepository(JdbcTemplate jdbc) {
-        this.jdbc = jdbc;
+        this.jdbcTemplate = jdbc;
     }
 
     public List<Item> findAll() {
-        return jdbc.query("SELECT * FROM items ORDER BY id", new ItemRowMapper());
+        return jdbcTemplate.query("SELECT * FROM items ORDER BY id", new ItemRowMapper());
     }
 
     public Optional<Item> findById(long id) {
-        List<Item> items = jdbc.query("SELECT * FROM items WHERE id = ?", new ItemRowMapper(), id);
+        List<Item> items = jdbcTemplate.query("SELECT * FROM items WHERE id = ?", new ItemRowMapper(), id);
         return items.stream().findFirst();
     }
 
     public List<Item> searchByTitle(String query) {
         String searchPattern = "%" + query.toLowerCase() + "%";
-        return jdbc.query(
+        return jdbcTemplate.query(
                 "SELECT * FROM items WHERE LOWER(title) LIKE ? ORDER BY id",
                 new ItemRowMapper(),
                 searchPattern
@@ -36,13 +36,13 @@ public class ItemRepository {
     }
 
     public int decreaseStock(long itemId, int quantity) {
-        return jdbc.update(
+        return jdbcTemplate.update(
                 "UPDATE items SET stock_qty = stock_qty - ? WHERE id  = ? AND stock_qty >= ?",
                 quantity, itemId, quantity
         );
     }
 
     public int increaseStock(long itemId, int quantity) {
-        return jdbc.update("UPDATE items SET stock_qty = stock_qty + ? WHERE id = ?", quantity, itemId);
+        return jdbcTemplate.update("UPDATE items SET stock_qty = stock_qty + ? WHERE id = ?", quantity, itemId);
     }
 }
