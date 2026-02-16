@@ -4,10 +4,12 @@ package com.shop.ShopBE.repository;
 import com.shop.ShopBE.model.User;
 import com.shop.ShopBE.repository.mapper.UserRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class UserRepository {
 
     private final JdbcTemplate jdbcTemplate;

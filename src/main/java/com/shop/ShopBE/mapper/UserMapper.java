@@ -2,7 +2,9 @@ package com.shop.ShopBE.mapper;
 
 import com.shop.ShopBE.dto.user.UserResponse;
 import com.shop.ShopBE.model.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
     public UserResponse toResponse(User user) {
         UserResponse res = new UserResponse();
