@@ -42,6 +42,10 @@ public class Order {
         return this.status;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setUserId(Long userId) {
         this.userId = userId;
     }
