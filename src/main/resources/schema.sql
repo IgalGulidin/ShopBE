@@ -27,8 +27,8 @@ CREATE TABLE favorites (
     user_id INT NOT NULL,
     item_id INT NOT NULL,
     PRIMARY KEY (user_id, item_id),
-    CONSTRAINT fk_fav_user FOREIGN KEY (user_id) REFERENCES users(id),
-    CONSTRAINT fk_fav_item FOREIGN KEY (item_id) REFERENCES items(id)
+    CONSTRAINT fk_fav_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_fav_item FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 );
 
 CREATE TABLE orders (
@@ -39,7 +39,7 @@ CREATE TABLE orders (
     ship_city VARCHAR(60) NOT NULL,
     total_price DECIMAL(10,2) NOT NULL,
     status VARCHAR(10) NOT NULL,
-    CONSTRAINT fk_order_user FOREIGN KEY (user_id) REFERENCES users(id)
+    CONSTRAINT fk_order_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE order_items (
@@ -48,6 +48,6 @@ CREATE TABLE order_items (
     quantity INT NOT NULL,
     unit_price DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (order_id, item_id),
-    CONSTRAINT fk_oi_order FOREIGN KEY (order_id) REFERENCES orders(id),
+    CONSTRAINT fk_oi_order FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
     CONSTRAINT fk_oi_item FOREIGN KEY (item_id) REFERENCES items(id)
 );
