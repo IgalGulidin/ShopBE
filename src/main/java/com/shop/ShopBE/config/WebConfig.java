@@ -19,15 +19,15 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
                 .addPathPatterns(
-                        "/api/favorites/**",
-                        "/api/orders/**",
-                        "/api/users/**"
+                        "/favorites/**",
+                        "/orders/**",
+                        "/users/**"
                 );
     }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
+        registry.addMapping("/**")
                 .allowedOrigins("http://localhost:5173")
                 .allowedMethods("*")
                 .allowedHeaders("*");
