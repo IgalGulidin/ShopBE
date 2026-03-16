@@ -155,7 +155,7 @@ GET /orders/{orderId}
 Clone the repository:
 
 ```
-git clone <repository-url>
+git clone https://github.com/IgalGulidin/ShopBE.git
 ```
 
 Navigate to the project folder:
