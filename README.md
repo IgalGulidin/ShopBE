@@ -1,184 +1,176 @@
-# Shopping Website – Frontend (React)
+# Shopping Website – Backend (Spring Boot)
 
 ## Overview
 
-This project is the frontend application for a full-stack shopping website.
+This project is the backend service for a full-stack shopping website.
+It provides REST APIs for managing users, items, favorites, and orders.
 
-The application allows users to:
+The backend is built using **Java and Spring Boot** and follows the architecture taught in the course:
 
-* browse items
-* search products
-* manage favorites
-* create and manage orders
-* complete purchases
+* MVC structure
+* DTOs and Mappers
+* Repository layer with JDBC
+* Service layer with business logic
+* Controller layer for REST endpoints
 
-The frontend communicates with the backend REST API built with **Spring Boot**.
+The system uses an **H2 in-memory database**, so the data resets whenever the backend restarts.
 
 ---
 
 # Technology Stack
 
-Frontend framework
+Backend framework
 
-* React
+* Java 17
+* Spring Boot
+
+Database
+
+* H2 (in-memory)
+
+Architecture
+
+* MVC
+* DTO mapping
+* JDBC repositories
 
 Build tool
 
-* Vite
-
-UI library
-
-* Material UI (MUI)
-
-Routing
-
-* React Router
-
-HTTP client
-
-* Axios
-
-State management
-
-* React Context
+* Gradle
 
 ---
 
 # Features
 
-### Home Page
-
-The main page displays all available items.
+### User System
 
 Users can:
 
-* search items
-* add items to favorites
-* add items to cart
+* Sign up
+* Log in
+* Delete their account
 
-Each item displays:
+Each user contains:
 
-* title
-* image
-* price
-* stock availability
+* id
+* first name
+* last name
+* email
+* password hash
+* phone
+* country
+* city
 
----
-
-### Authentication
-
-Users can:
-
-* sign up
-* log in
-* log out
-
-Authentication uses a token stored in localStorage.
-
-Protected pages:
+Deleting a user removes:
 
 * favorites
 * orders
-* pending order
+* order items
+
+---
+
+### Items
+
+The system provides a list of items that users can browse and search.
+
+Each item contains:
+
+* id
+* title
+* image url
+* price (USD)
+* stock quantity
+
+Items can be searched by title.
+
+Example:
+
+```
+GET /items?search=mouse
+```
 
 ---
 
 ### Favorites
 
-Logged-in users can:
+Logged-in users can manage a favorites list.
+
+Users can:
 
 * add items to favorites
 * remove items from favorites
-* view all favorite items
+* view their favorites
 
-Favorites persist between sessions.
+Each item appears **only once** in the list.
+
+Endpoints:
+
+```
+GET /favorites
+POST /favorites/{itemId}
+DELETE /favorites/{itemId}
+```
 
 ---
 
 ### Orders
 
-Users can:
+Users can create and manage orders.
 
-* create a pending order
-* add items
-* remove items
-* adjust quantities
-* complete payment
+Order fields:
 
-Order pages include:
+* id
+* user id
+* created date
+* shipping address
+* total price
+* status
 
-* Orders list page
-* Pending order page
-* Order details page
+Order status values:
+
+* TEMP (pending order)
+* CLOSE (completed order)
+
+Rules:
+
+* each user can have **only one TEMP order**
+* users can add or remove items
+* stock decreases when items are added
+* order becomes CLOSE after payment
+
+Endpoints:
+
+```
+GET /orders
+GET /orders/pending
+POST /orders/pending/items/{itemId}
+POST /orders/pending/pay
+GET /orders/{orderId}
+```
 
 ---
 
-# Project Structure
-
-```
-src/
-  api/
-  components/
-  context/
-  pages/
-  theme.js
-  App.jsx
-  main.jsx
-```
-
-Main folders:
-
-components
-Reusable UI components
-
-pages
-Application screens
-
-api
-Backend API communication
-
-context
-Authentication state
-
----
-
-# Running the Frontend
+# Running the Backend
 
 Clone the repository:
 
 ```
-git clone https://github.com/IgalGulidin/SHOP-FE.git
+git clone https://github.com/IgalGulidin/ShopBE.git
 ```
 
-Navigate to the project:
+Navigate to the project folder:
 
 ```
-cd shop-fe
+cd ShopBE
 ```
 
-Install dependencies:
+Run the application:
 
 ```
-npm install
+./gradlew bootRun
 ```
 
-Run the development server:
-
-```
-npm run dev
-```
-
-Application URL:
-
-```
-http://localhost:5173
-```
-
----
-
-# Backend Requirement
-
-The backend must be running on:
+The server will start on:
 
 ```
 http://localhost:8080
@@ -186,24 +178,63 @@ http://localhost:8080
 
 ---
 
-# Example User Flow
+# H2 Database Console
 
-1. Sign up or login
-2. Browse items on the homepage
-3. Add items to favorites or cart
-4. Open pending order
-5. Adjust quantities
-6. Pay for the order
-7. View order history
+You can inspect the database at:
+
+```
+http://localhost:8080/h2-console
+```
+
+JDBC URL:
+
+```
+jdbc:h2:mem:shopdb
+```
+
+Username:
+
+```
+sa
+```
+
+Password:
+
+(empty)
 
 ---
 
-# UI Features
+# Example API Flow
 
-* Dark theme
-* Snackbar notifications
-* Loading indicators
-* Disabled buttons during API calls
+1. Sign up
+
+```
+POST /auth/signup
+```
+
+2. Login
+
+```
+POST /auth/login
+```
+
+3. Browse items
+
+```
+GET /items
+```
+
+4. Add item to order
+
+```
+POST /orders/pending/items/{itemId}
+```
+
+5. Pay order
+
+```
+POST /orders/pending/pay
+```
 
 ---
 
